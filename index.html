@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Discover, explore and register for premier conferences, music festivals, tech summits, culinary galas and workshops worldwide." />
+  <title>Moon Light | Event Discovery & Registration Platform</title>
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <div class="brand-logo" onclick="window.app.switchView('explore')">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </div>
+        <div class="brand-text">Moon <span>Light</span></div>
+      </div>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="nav-links">
+        <button id="navExploreBtn" class="nav-link active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+          Explore Events
+        </button>
+        <button id="navMyEventsBtn" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+          My Events
+          <span id="registeredBadge" class="nav-badge" style="display:none;">0</span>
+        </button>
+      </nav>
+
+      <!-- Nav Action Controls -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+
+        <!-- Create Event Button -->
+        <button id="navCreateBtn" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          Host Event
+        </button>
+
+        <!-- Mobile Menu Trigger -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open Navigation">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <aside id="mobileNavDrawer" class="mobile-nav-drawer">
+    <div class="mobile-nav-header">
+      <div class="brand-logo">
+        <div class="brand-icon">🌙</div>
+        <div class="brand-text">Moon <span>Light</span></div>
+      </div>
+      <button id="closeMobileNavBtn" class="close-btn" aria-label="Close menu">&times;</button>
+    </div>
+    <div class="mobile-nav-links">
+      <button class="nav-link" onclick="window.app.switchView('explore')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+        Explore Events
+      </button>
+      <button class="nav-link" onclick="window.app.switchView('my-events')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path></svg>
+        My Events
+        <span id="registeredBadgeMobile" class="nav-badge" style="display:none;">0</span>
+      </button>
+      <button class="btn btn-primary btn-block" style="margin-top:14px;" onclick="window.app.openCreateEventModal()">
+        + Host an Event
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <main id="mainContent">
+
+    <!-- ================= VIEW 1: EXPLORE EVENTS ================= -->
+    <div id="exploreView">
+      <!-- HERO BANNER SECTION -->
+      <section class="hero-section">
+        <div class="hero-glow-1"></div>
+        <div class="hero-glow-2"></div>
+        <div class="container hero-grid">
+          <div class="hero-text-content">
+            <div class="hero-pill">
+              <span>🔥 Over 450+ Upcoming Experiences</span>
+            </div>
+            <h1 class="hero-title">
+              Discover, Book & Experience <br />
+              <span class="gradient-text">Extraordinary Events</span>
+            </h1>
+            <p class="hero-description">
+              Find world-class technology summits, live music festivals, startup expos, culinary showcases, and hands-on masterclasses. Instant booking with digital verified passes.
+            </p>
+
+            <!-- Hero Quick Search Bar -->
+            <div class="hero-search-box">
+              <div class="search-input-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="heroSearchInput" placeholder="Search by title, topic, speaker, or city..." />
+              </div>
+              <div class="search-select-wrap">
+                <select id="heroCategorySelect">
+                  <option value="all">All Categories</option>
+                </select>
+              </div>
+              <button id="heroSearchBtn" class="btn btn-primary">Find Events</button>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="hero-stats-row">
+              <div class="stat-item">
+                <span class="stat-number">120K+</span>
+                <span class="stat-sub">Attendees Joined</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">45+</span>
+                <span class="stat-sub">Global Cities</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-number">99.4%</span>
+                <span class="stat-sub">Satisfaction Rate</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Featured Event Spotlight Card -->
+          <div class="hero-spotlight-wrapper">
+            <div id="heroFeaturedCard" class="hero-featured-card">
+              <!-- Rendered dynamically by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENTS DISCOVERY & FILTERING SECTION -->
+      <section id="eventsSection" class="discovery-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-heading-group">
+              <h2>Upcoming Experiences</h2>
+              <p>Explore curated events across popular domains and claim your pass.</p>
+            </div>
+          </div>
+
+          <!-- Category Chips Row -->
+          <div id="categoryChipsContainer" class="category-chips-row">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="filter-toolbar">
+            <div class="filter-left-group">
+              <!-- Live Search Input -->
+              <div class="search-input-field">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="searchInput" placeholder="Filter events instantly..." />
+              </div>
+
+              <!-- Select Filters -->
+              <div class="filter-selects">
+                <select id="priceFilterSelect" class="filter-select-box">
+                  <option value="all">All Prices</option>
+                  <option value="free">Free Events Only</option>
+                  <option value="paid">Paid Events</option>
+                  <option value="under50">Under $50</option>
+                  <option value="50to150">$50 - $150</option>
+                  <option value="over150">$150+</option>
+                </select>
+
+                <select id="locationFilterSelect" class="filter-select-box">
+                  <option value="all">All Formats</option>
+                  <option value="in-person">In-Person Only</option>
+                  <option value="virtual">Virtual / Online</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
+
+                <select id="sortBySelect" class="filter-select-box">
+                  <option value="date-asc">Date: Soonest First</option>
+                  <option value="date-desc">Date: Latest First</option>
+                  <option value="price-asc">Price: Low to High</option>
+                  <option value="price-desc">Price: High to Low</option>
+                  <option value="popularity">Most Popular</option>
+                  <option value="rating">Highest Rated</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="filter-right-group">
+              <span id="resultsCount" class="results-count-text">Showing events...</span>
+              <button id="clearFiltersBtn" class="btn btn-outline btn-sm" style="display:none;">Clear Filters</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Events Grid -->
+          <div id="eventsGrid" class="events-grid">
+            <!-- Event cards rendered dynamically by JavaScript -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= VIEW 2: MY EVENTS (REGISTERED) ================= -->
+    <div id="myEventsView" class="hidden">
+      <section class="my-events-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="section-heading-group">
+              <h2>My Registered Events</h2>
+              <p>Manage your booked event passes, digital e-tickets, and calendar schedules.</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.app.switchView('explore')">
+              + Discover More Events
+            </button>
+          </div>
+
+          <!-- Summary Stats -->
+          <div id="myEventsStats" class="stats-grid">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Registration Tabs -->
+          <div id="myEventsFilterTabs" class="my-events-tabs">
+            <button class="tab-pill active" data-tab="all" onclick="window.app.filterMyEvents('all')">All Bookings</button>
+            <button class="tab-pill" data-tab="confirmed" onclick="window.app.filterMyEvents('confirmed')">Confirmed Active</button>
+            <button class="tab-pill" data-tab="cancelled" onclick="window.app.filterMyEvents('cancelled')">Cancelled</button>
+          </div>
+
+          <!-- Registered Events List -->
+          <div id="myEventsGrid" class="my-events-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- ================= MODALS SYSTEM ================= -->
+
+  <!-- 1. Event Details Modal -->
+  <div id="eventDetailsModal" class="modal-overlay">
+    <div class="modal-dialog">
+      <button id="closeDetailsBtn" class="modal-close-icon" aria-label="Close modal">&times;</button>
+      <div id="detailsModalContent">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Event Registration Modal -->
+  <div id="registrationModal" class="modal-overlay">
+    <div class="modal-dialog registration-dialog">
+      <button id="closeRegistrationBtn" class="modal-close-icon" aria-label="Close modal">&times;</button>
+      <div class="reg-modal-header">
+        <h2>Event Registration</h2>
+      </div>
+      <div id="registrationModalBody">
+        <!-- Form or Confirmation Screen rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Digital Ticket Pass Modal -->
+  <div id="ticketModal" class="modal-overlay">
+    <div class="modal-dialog ticket-dialog">
+      <button id="closeTicketBtn" class="modal-close-icon" aria-label="Close modal">&times;</button>
+      <div id="ticketModalContent">
+        <!-- Digital ticket pass rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Create / Host Event Modal -->
+  <div id="createEventModal" class="modal-overlay">
+    <div class="modal-dialog registration-dialog">
+      <button id="closeCreateEventBtn" class="modal-close-icon" aria-label="Close modal">&times;</button>
+      <div class="reg-modal-header">
+        <h2>Host a New Event</h2>
+      </div>
+      <form id="createEventForm">
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label" for="newEventTitle">Event Title *</label>
+            <input type="text" id="newEventTitle" class="form-input" placeholder="e.g. Next-Gen Web3 & AI Hackathon" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventCategory">Category *</label>
+            <select id="newEventCategory" class="form-input">
+              <option value="technology">Technology & AI</option>
+              <option value="music">Music & Concerts</option>
+              <option value="business">Business & Startups</option>
+              <option value="food">Food & Wine</option>
+              <option value="arts">Arts & Culture</option>
+              <option value="sports">Sports & Fitness</option>
+              <option value="workshops">Workshops & Education</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventLocationType">Format *</label>
+            <select id="newEventLocationType" class="form-input">
+              <option value="In-Person">In-Person</option>
+              <option value="Virtual">Virtual / Online</option>
+              <option value="Hybrid">Hybrid</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventDate">Event Date *</label>
+            <input type="date" id="newEventDate" class="form-input" value="2027-04-15" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventTime">Time Range</label>
+            <input type="text" id="newEventTime" class="form-input" placeholder="e.g. 10:00 AM - 05:00 PM EST" value="10:00 AM - 05:00 PM EST" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventVenue">Venue Name *</label>
+            <input type="text" id="newEventVenue" class="form-input" placeholder="e.g. Convention Center & Online" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventCity">City & State</label>
+            <input type="text" id="newEventCity" class="form-input" placeholder="e.g. San Francisco, CA" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventPrice">Pass Price ($ USD)</label>
+            <input type="number" id="newEventPrice" class="form-input" min="0" step="5" placeholder="0 for Free" value="45" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="newEventSeats">Available Capacity</label>
+            <input type="number" id="newEventSeats" class="form-input" min="10" placeholder="100" value="150" />
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label" for="newEventBanner">Banner Image URL</label>
+            <input type="url" id="newEventBanner" class="form-input" placeholder="https://images.unsplash.com/..." value="https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80" />
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label class="form-label" for="newEventDescription">Event Description & Details *</label>
+            <textarea id="newEventDescription" class="form-input" rows="3" placeholder="Provide a compelling overview of what attendees will experience..." required>Join us for an inspiring session featuring top speakers, hands-on demonstrations, and great networking opportunities.</textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Publish Event</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="brand-icon">🌙</div>
+          <div class="brand-text">Moon <span>Light</span></div>
+        </div>
+        <p>The modern platform for discovering, organizing, and experiencing premier global conferences, summits, and live performances.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#" onclick="window.app.switchView('explore')">All Events</a></li>
+          <li><a href="#eventsSection">Technology & AI</a></li>
+          <li><a href="#eventsSection">Music & Concerts</a></li>
+          <li><a href="#eventsSection">Business & Startups</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Attendees</h4>
+        <ul>
+          <li><a href="#" onclick="window.app.switchView('my-events')">My Passes</a></li>
+          <li><a href="#" onclick="window.app.switchView('my-events')">Booking Confirmation</a></li>
+          <li><a href="#" onclick="window.app.switchView('my-events')">Calendar Sync</a></li>
+          <li><a href="#">FAQ & Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Organizers</h4>
+        <ul>
+          <li><a href="#" onclick="window.app.openCreateEventModal()">Publish Event</a></li>
+          <li><a href="#">Ticketing Solutions</a></li>
+          <li><a href="#">QR Check-In Scanner</a></li>
+          <li><a href="#">Security & Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Moon Light Technologies Inc. All rights reserved.</div>
+      <div>Designed with responsive UI, live discovery, and instant e-ticketing.</div>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ticket.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+{
+  "name": "event-management-website",
+  "version": "1.0.0",
+  "description": "Event Discovery and Registration Platform with responsive UI, live search, category filters, interactive booking, digital tickets, and My Events dashboard.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "event-management",
+    "event-discovery",
+    "registration",
+    "tickets",
+    "vanilla-js",
+    "responsive"
+  ],
+  "author": "Gokila",
+  "license": "MIT"
+}
+
